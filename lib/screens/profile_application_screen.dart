@@ -179,7 +179,7 @@ class _ProfileApplicationState extends State<ProfileApplication> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.exit_to_app, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
                     removeApplyProject(context, projectSummary.project?.id);
                   },
