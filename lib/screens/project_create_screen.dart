@@ -70,7 +70,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     final response = await http.post(
-      'https://startup-competition-api.azurewebsites.net/api/v1/projects/add',
+      'https://matching-api.unibean.net/api/v1/projects/add',
       headers: {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'},
       body: json.encode(data),
     );
@@ -86,24 +86,26 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: const Text("Project"),
-          ),
-          body: Column(
-            children: <Widget>[
-              headerSection(),
-              const SizedBox(),
-              inputProject(),
-              const SizedBox(),
-              Center(child: buttonActions()),
-              // const SizedBox(),
-              // createButton(),
-              const SizedBox()
-            ],
-          )),
-    );
+    return  SafeArea(
+        child: Scaffold(
+            appBar: AppBar(
+              title: const Text("Project"),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  headerSection(),
+                  const SizedBox(),
+                  inputProject(),
+                  const SizedBox(),
+                  Center(child: buttonActions()),
+                  // const SizedBox(),
+                  // createButton(),
+                  const SizedBox()
+                ],
+              ),
+            )),
+      );
   }
 
   final TextEditingController titleController = TextEditingController();

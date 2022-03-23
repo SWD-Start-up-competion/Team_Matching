@@ -35,7 +35,7 @@ class _RecommendedProjectsScreenState extends State<RecommendedProjectsScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     final response = await http.get(
-      'https://startup-competition-api.azurewebsites.net/api/v1/projects/match',
+      'https://matching-api.unibean.net/api/v1/projects/match',
       headers: {'Authorization': 'Bearer $token'},
     );
     List<ProjectSummary> res = [];

@@ -102,7 +102,7 @@ class _CreateProjectScreenState extends State<ProfileEditScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     final response = await http.put(
-      'https://startup-competition-api.azurewebsites.net/api/v1/students/$userId',
+      'https://matching-api.unibean.net/api/v1/students/$userId',
       headers: {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'},
       body: json.encode(data),
     );
@@ -118,22 +118,24 @@ class _CreateProjectScreenState extends State<ProfileEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            headerSection(),
-            const SizedBox(),
-            inputProject(),
-            const SizedBox(),
-            Center(child: buttonActions()),
-            // const SizedBox(),
-            // createButton(),
-            const SizedBox()
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Profile"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              headerSection(),
+              const SizedBox(),
+              inputProject(),
+              const SizedBox(),
+              Center(child: buttonActions()),
+              // const SizedBox(),
+              // createButton(),
+              const SizedBox()
+            ],
+          ),
         ),
       ),
     );

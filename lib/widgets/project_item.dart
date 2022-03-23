@@ -17,7 +17,7 @@ class ProjectItem extends StatelessWidget {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     final response = await http.post(
-      'https://startup-competition-api.azurewebsites.net/api/v1/student-in-project?project-id=$projectId',
+      'https://matching-api.unibean.net/api/v1/student-in-project?project-id=$projectId',
       headers: {'Authorization': 'Bearer $token'},
     );
     if (response.statusCode == 201) {

@@ -51,7 +51,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       }
     };
     final response = await http.post(
-        'https://startup-competition-api.azurewebsites.net/api/v1/projects',
+        'https://matching-api.unibean.net/api/v1/projects',
         headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
         body: json.encode(data));
     List<ProjectSummary> res = [];

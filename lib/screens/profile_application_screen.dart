@@ -30,7 +30,7 @@ class _ProfileApplicationState extends State<ProfileApplication> {
     String? token = sharedPreferences.getString('token');
 
     final response = await http.get(
-      'https://startup-competition-api.azurewebsites.net/api/v1/student-in-project/current',
+      'https://matching-api.unibean.net/api/v1/student-in-project/current',
       headers: {
         'Content-Type': 'application/json',
         'accept': 'application/json',
@@ -69,7 +69,7 @@ class _ProfileApplicationState extends State<ProfileApplication> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     final response = await http.delete(
-      'https://startup-competition-api.azurewebsites.net/api/v1/student-in-project/remove-application/$projectId',
+      'https://matching-api.unibean.net/api/v1/student-in-project/remove-application/$projectId',
       headers: {'Authorization': 'Bearer $token'},
     );
     if (response.statusCode == 204) {

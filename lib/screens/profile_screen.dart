@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _pages = [
       {'page': const ProfileDetailScreen(), 'title': 'Profile'},
       {'page': const ProfileApplication(), 'title': 'My application'},
-      {'page': const RecommendedProjectsScreen(), 'title': 'My team'},
+      // {'page': const RecommendedProjectsScreen(), 'title': 'My team'},
     ];
     super.initState();
   }
@@ -37,9 +37,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _titleAppbar = "Profile";
       } else if (index == 1) {
         _titleAppbar = "My application";
-      } else if (index == 2) {
-        _titleAppbar = "My team";
-      }
+      } 
+      // else if (index == 2) {
+      //   _titleAppbar = "My team";
+      // }
     });
   }
 
@@ -73,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.verified_user_sharp), label: 'Profile'),
             BottomNavigationBarItem(icon: Icon(Icons.book), label: 'My application'),
-            BottomNavigationBarItem(icon: Icon(Icons.group), label: 'My team'),
+            // BottomNavigationBarItem(icon: Icon(Icons.group), label: 'My team'),
           ],
         ),
       ),

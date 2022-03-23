@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     };
     String jsonResponse;
     http.Response response = await http.post(
-        "https://startup-competition-api.azurewebsites.net/api/v1/authentication",
+        "https://matching-api.unibean.net/api/v1/authentication",
         headers: {"Content-Type": "application/json"},
         body: json.encode(data));
 

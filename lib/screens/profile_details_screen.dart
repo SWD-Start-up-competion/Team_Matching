@@ -45,7 +45,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     final response = await http.get(
-        'https://startup-competition-api.azurewebsites.net/api/v1/students/current',
+        'https://matching-api.unibean.net/api/v1/students/current',
         headers: {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
       dynamic value;

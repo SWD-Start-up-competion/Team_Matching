@@ -52,7 +52,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
 
   Future<Project> fetchProject(projectId) async {
     final response = await http.get(
-      'https://startup-competition-api.azurewebsites.net/api/v1/projects/$projectId',
+      'https://matching-api.unibean.net/api/v1/projects/$projectId',
     );
     if (response.statusCode == 200) {
       dynamic value;
@@ -81,7 +81,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
 
   Future<List<Comment>> fetchProjectComments(projectId) async {
     final response = await http.get(
-      'https://startup-competition-api.azurewebsites.net/api/v1/projects/$projectId/comments?page=0&page-size=100',
+      'https://matching-api.unibean.net/api/v1/projects/$projectId/comments?page=0&page-size=100',
     );
     List<Comment> res = [];
     if (response.statusCode == 200) {
@@ -127,7 +127,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     final response = await http.post(
-      'https://startup-competition-api.azurewebsites.net/api/v1/comments',
+      'https://matching-api.unibean.net/api/v1/comments',
       headers: {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'},
       body: json.encode(data),
     );
@@ -151,6 +151,25 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to comment project');
+    }
+  }
+
+    Future<void> applyProject(context, projectId) async {
+    if (projectId == null) return;
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+    final response = await http.post(
+      'https://matching-api.unibean.net/api/v1/student-in-project?project-id=$projectId',
+      headers: {'Authorization': 'Bearer $token'},
+    );
+    if (response.statusCode == 201) {
+      popupMessage(context, "Ứng tuyển", "Ứng tuyển thành công");
+    }
+    if (response.statusCode == 400) {
+      popupMessage(context, "Ứng tuyển", response.body);
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load project');
     }
   }
 
@@ -241,6 +260,20 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                       ),
                     ]),
                     context),
+                const Divider(
+                  color: Colors.black,
+                  thickness: 0.2,
+                ),
+                MediaQuery.of(context).size.width > 360
+                  ? TextButton.icon(
+                      onPressed: () => {applyProject(context, _projectSummary.project?.id)},
+                      icon: Icon(Icons.arrow_circle_right, color: Theme.of(context).errorColor),
+                      label:
+                          Text('Ứng tuyển', style: TextStyle(color: Theme.of(context).errorColor)),
+                    )
+                  : ElevatedButton(
+                      child: const Text('Ứng tuyển'),
+                      onPressed: () => {applyProject(context, _projectSummary.project?.id)}),
                 const Divider(
                   color: Colors.black,
                   thickness: 0.2,
@@ -368,6 +401,26 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Text(text, style: Theme.of(context).textTheme.headline6),
+    );
+  }
+
+    Future<void> popupMessage(BuildContext context, String title, String message) async {
+    await showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
